@@ -1,0 +1,6 @@
+{
+  "name": "Phpday1-and-2",
+  "tagline": "Starting a project to php final project to my mentor Shaun Ferns",
+  "body": "<?php\r\nfunction __autoload($class){require_once\"{$class}.class.php\";}\r\n\r\nabstract class ConDB\r\n{\r\n\t\tprivate static $cnx;\r\n\r\n\t\tprivate function setConn()\r\n\t\t{\r\n\t\t\treturn\r\n\t\t\tis_null(self::$cnx)?\r\n\t\t\t\t\tself::$cnx=new PDO(\"mysql:host=localhost;dbname=DevPHP\",\"root\"):\r\n\t\t\t\t\tself::$cnx;\r\n\t\t}\r\n\t\tpublic function getConn()\r\n\t\t{\r\n\t\t\treturn $this->setConn();\r\n\t\t}\r\n}",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
