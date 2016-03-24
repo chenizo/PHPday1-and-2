@@ -39,7 +39,52 @@ function __autoload($class){require_once"{$class}.class.php";}</p>
     }
 </code></pre>
 
-<p>}</p>
+<p>}
+&lt;?php
+class CRUD extends ConDB
+{
+    private $query;
+    private function prepExec($prep,$exec)
+    {
+        $this-&gt;query=$this-&gt;getConn()-&gt;prepare($prep);
+        $this-&gt;query-&gt;execute($exec);
+    }
+    public function insert($table,$prep,$exec)
+    {
+        $this-&gt;prepExec('INSERT INTO ' . $table . ' SET ' . $prep . '', $exec);
+        return $this-&gt;getConn()-&gt;lastInsertId();
+    }
+    public function select($fields,$table,$cond,$exec)
+    {
+        $this-&gt;prepExec('SELECT '.$fields.' FROM '.$table.' '.$cond.' ',$exec);
+        return $this-&gt;query;
+    }
+    public function update($table,$cond,$exec)
+    {
+        $this-&gt;prepExec('UPDATE '.$table.' SET '.$cond.'', $exec);
+    }</p>
+
+<pre><code>public function delete($table,$cond,$exec)
+{
+    $this-&gt;prepExec('DELETE FROM '.$table.''.$cond.'',$exec);
+}
+}
+</code></pre>
+
+<p>&lt;?php
+class ValidEmail
+{
+    public function setValidEmail($email)
+    {
+        if(strlen($email))
+        return 'Inform email';
+        else
+        if(!preg_match('/^[0-9a-z_.-]+\@[0-9a-z_.-]*[0-9a-z_-]+.[a-z]{2,3}$/i',$email))
+        return 'E-mail valid';
+        else
+        return $email;
+    }
+}</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/chenizo/PHPday1-and-2">Phpday1-and-2</a> is maintained by <a href="https://github.com/chenizo">chenizo</a>.</span>
